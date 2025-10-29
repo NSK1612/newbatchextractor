@@ -10,7 +10,7 @@
     <div class="container">
         <header class="header">
             <h1>Batch Number Extractor</h1>
-            <p class="subtitle">Upload product images to extract batch numbers starting with 'medplus'</p>
+            <p class="subtitle">Extract 12-character batch code after 'medplus'</p>
         </header>
 
         <main class="main-content">
@@ -93,11 +93,11 @@
                     Instructions for Best Results
                 </h3>
                 <ul class="help-list">
-                    <li>Image should contain a label with "medplus" followed by a 12-character batch code</li>
+                    <li>Image should contain "medplus" followed immediately by exactly 12 characters (only those 12 chars will be extracted)</li>
                     <li>Use clear, well-lit images for optimal text recognition</li>
                     <li>Ensure the batch number text is clearly visible and not blurred</li>
                     <li>Supported image formats: JPEG, PNG, BMP, WEBP</li>
-                    <li>Example batch format: medplusABC123456789 or MedPlusXYZ987654321</li>
+                    <li>Example: If image contains "medplusABC123456789", the result will be "ABC123456789" (without medplus)</li>
                 </ul>
             </section>
         </main>

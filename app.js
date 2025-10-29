@@ -12,7 +12,7 @@ const CONFIG = {
   sampleBatches: [
     'medplusABC123456789',
     'MedPlusXYZ987654321',
-    'MEDPLUS1234567890AB'
+    'MEDPLUS12-AB-34-CD'
   ]
 };
 
@@ -228,17 +228,24 @@ async function handleExtract() {
 function extractBatchNumber(text) {
   if (!text) return null;
 
-  // Split text into lines
-  const lines = text.split('\n');
-
-  // Search each line for batch number
-  for (const line of lines) {
-    const regex = new RegExp(CONFIG.batchPrefix + '([a-z0-9]{' + CONFIG.batchLength + '})', 'i');
-    const match = line.match(regex);
+  // Convert to lowercase for case-insensitive search
+  const lowerText = text.toLowerCase();
+  const searchTerm = CONFIG.batchPrefix.toLowerCase();
+  
+  // Find the position of "medplus"
+  const index = lowerText.indexOf(searchTerm);
+  
+  if (index !== -1) {
+    // Calculate the starting position after "medplus"
+    const startPos = index + searchTerm.length;
     
-    if (match) {
-      // Return the full match (prefix + 12 characters)
-      return match[0];
+    // Extract exactly 12 characters after "medplus"
+    const batchCode = text.substring(startPos, startPos + CONFIG.batchLength);
+    
+    // Check if we got exactly 12 characters
+    if (batchCode.length === CONFIG.batchLength) {
+      // Return ONLY the 12 characters after medplus (uppercase)
+      return batchCode.toUpperCase();
     }
   }
 
